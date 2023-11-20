@@ -1,6 +1,7 @@
 package com.example.swipeassignment.di
 
-import com.example.swipeassignment.api.ProductApiService
+import android.util.Log
+import com.example.swipeassignment.api.ProductApi
 import com.example.swipeassignment.data.repo.ProductRepository
 import com.example.swipeassignment.data.repo.ProductRepositoryImpl
 import com.example.swipeassignment.viewmodels.ProductListViewModel
@@ -10,12 +11,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module{
+    Log.d("In App Module","We are in app Module")
     single {
         Retrofit.Builder()
             .baseUrl("https://app.getswipe.in/api/public/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ProductApiService::class.java)
+            .create(ProductApi::class.java)
     }
 
     single<ProductRepository> {

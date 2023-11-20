@@ -5,15 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.swipeassignment.data.models.ProductModel
+import com.example.swipeassignment.data.models.Product
 import com.example.swipeassignment.data.repo.ProductRepository
 import kotlinx.coroutines.launch
 
 class ProductListViewModel(
     private val repository: ProductRepository
 ): ViewModel() {
-    private val _products = MutableLiveData<List<ProductModel>>()
-    val products: LiveData<List<ProductModel>> get() = _products
+    private val _products = MutableLiveData<List<Product>>()
+    val products: LiveData<List<Product>> get() = _products
 
     fun getProducts() {
         viewModelScope.launch {
