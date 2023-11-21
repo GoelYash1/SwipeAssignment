@@ -1,7 +1,9 @@
 package com.example.swipeassignment.screens.productListScreen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,7 +26,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.swipeassignment.util.Resource
 import com.example.swipeassignment.viewmodels.ProductListViewModel
 
@@ -73,11 +77,21 @@ fun ProductListScreen(productListViewModel: ProductListViewModel) {
                     it.product_type.contains(searchText.trim(), ignoreCase = true) ||
                             it.product_name.contains(searchText.trim(), ignoreCase = true)
                 }?: emptyList()
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2)
-                ) {
-                    items(filteredProducts) { product ->
-                        ProductListItem(product)
+                if(filteredProducts.isEmpty()){
+                    Row(
+                        modifier = Modifier.fillMaxSize(),
+                        Arrangement.Center,
+                        Alignment.CenterVertically
+                    ) {
+                        Text("No products are there", textAlign = TextAlign.Center, fontSize = 14.sp)
+                    }
+                }else{
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2)
+                    ) {
+                        items(filteredProducts) { product ->
+                            ProductListItem(product)
+                        }
                     }
                 }
             }

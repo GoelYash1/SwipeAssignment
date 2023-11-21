@@ -25,6 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.swipeassignment.data.models.Product
+import java.math.BigDecimal
+import java.math.RoundingMode
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 @Composable
 fun ProductListItem(product: Product) {
@@ -39,11 +43,10 @@ fun ProductListItem(product: Product) {
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Use AsyncImage with conditional URL
             AsyncImage(
                 model = if (product.image.isNullOrBlank()) {
                     "https://vx-erp-product-images.s3.ap-south-1.amazonaws.com/9_1619873597_WhatsApp_Image_2021-04-30_at_19.43.23.jpeg"
@@ -51,14 +54,14 @@ fun ProductListItem(product: Product) {
                     product.image
                 },
                 contentDescription = "",
-                contentScale = ContentScale.Crop, // Crop the image
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .height(120.dp)
                     .fillMaxWidth(),
                 alignment = Alignment.Center
             )
 
-            Spacer(modifier = Modifier.height(8.dp)) // Add some spacing
+            Spacer(modifier = Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -68,15 +71,18 @@ fun ProductListItem(product: Product) {
                 Text(
                     text = product.product_name,
                     fontWeight = FontWeight.ExtraBold,
-                    fontSize = 20.sp,
-                )
-                Text(
-                    text = "Type: ${product.product_type}",
                     fontSize = 16.sp,
+                )
+                val roundedPrice = BigDecimal(product.price.toString())
+                    .setScale(2, RoundingMode.HALF_EVEN)
+                    .toDouble()
+                Text(
+                    text = "Price: $roundedPrice",
+                    fontSize = 12.sp,
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp)) // Add some spacing
+            Spacer(modifier = Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -84,13 +90,13 @@ fun ProductListItem(product: Product) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Price: ${product.price}",
+                    text = "Type: ${product.product_type}",
                     fontSize = 14.sp,
                 )
                 Text(
                     text = "Tax: ${product.tax}",
                     fontWeight = FontWeight.Light,
-                    fontSize = 14.sp,
+                    fontSize = 12.sp,
                 )
             }
 
@@ -98,4 +104,3 @@ fun ProductListItem(product: Product) {
         }
     }
 }
-

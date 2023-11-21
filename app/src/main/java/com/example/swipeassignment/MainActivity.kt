@@ -34,6 +34,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.swipeassignment.screens.addProductScreen.AddProductScreen
 import com.example.swipeassignment.screens.productListScreen.ProductListScreen
+import com.example.swipeassignment.viewmodels.ProductAddViewModel
 import com.example.swipeassignment.viewmodels.ProductListViewModel
 import org.koin.androidx.compose.getViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -91,7 +92,8 @@ class MainActivity : ComponentActivity() {
 fun Navigation(navController: NavHostController){
     NavHost(navController = navController, startDestination = "productListScreen") {
         composable("addProductScreen") {
-            AddProductScreen(navController)
+        val productAddViewModel = getViewModel<ProductAddViewModel>()
+            AddProductScreen(navController,productAddViewModel)
         }
         composable("productListScreen") {
             val productListViewModel = getViewModel<ProductListViewModel>()

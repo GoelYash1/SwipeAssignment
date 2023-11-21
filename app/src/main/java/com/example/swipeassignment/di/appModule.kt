@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.swipeassignment.api.ProductApi
 import com.example.swipeassignment.data.repo.ProductRepository
 import com.example.swipeassignment.data.repo.ProductRepositoryImpl
+import com.example.swipeassignment.viewmodels.ProductAddViewModel
 import com.example.swipeassignment.viewmodels.ProductListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -26,5 +27,9 @@ val appModule = module{
 
     viewModel{
         ProductListViewModel(get())
+    }
+
+    viewModel{
+        ProductAddViewModel(get())
     }
 }
