@@ -7,3 +7,10 @@ data class Product(
     val product_type: String,
     val tax: Double
 )
+
+data class PostProduct(
+    val price: String,
+    val product_name: String,
+    val product_type: String,
+    val tax: String
+)
