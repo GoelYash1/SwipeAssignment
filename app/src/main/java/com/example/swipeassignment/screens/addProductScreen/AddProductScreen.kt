@@ -166,14 +166,11 @@ fun AddProductScreen(navController: NavHostController, productAddViewModel: Prod
 
     LaunchedEffect(successfulAdd) {
         if (successfulAdd) {
-            navController.navigate("productListScreen") {
-                popUpTo("addProductScreen") {
-                    inclusive = true
-                }
-            }
+            navController.navigateUp()
             successfulAdd = false
         }
     }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -200,7 +197,7 @@ private fun ProductButton(onClick: () -> Unit, buttonText: String) {
             .fillMaxWidth()
             .height(50.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Cyan.copy(0.5f),
+            containerColor = Color.DarkGray.copy(alpha = 0.8f),
             contentColor = Color.Black
         )
     ) {

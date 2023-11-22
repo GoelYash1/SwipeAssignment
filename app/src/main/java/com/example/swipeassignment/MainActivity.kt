@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
 
                         },
                         colors = TopAppBarDefaults.largeTopAppBarColors(
-                            containerColor = Color.Cyan.copy(alpha = 0.5f)
+                            containerColor = Color.DarkGray.copy(alpha = 0.8f)
                         )
                     )
                 }
