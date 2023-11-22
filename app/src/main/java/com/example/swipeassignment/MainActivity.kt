@@ -67,10 +67,13 @@ class MainActivity : ComponentActivity() {
                                     contentDescription = "",
                                     modifier = Modifier.clickable (
                                         onClick = {
-                                            navController.navigate("addProductScreen")
+                                            navController.navigate("addProductScreen") {
+                                                popUpTo("addProductScreen") {
+                                                    inclusive = true
+                                                }
+                                            }
                                         }
                                     )
-
                                 )
                             }
 
@@ -92,7 +95,7 @@ class MainActivity : ComponentActivity() {
 fun Navigation(navController: NavHostController){
     NavHost(navController = navController, startDestination = "productListScreen") {
         composable("addProductScreen") {
-        val productAddViewModel = getViewModel<ProductAddViewModel>()
+            val productAddViewModel = getViewModel<ProductAddViewModel>()
             AddProductScreen(navController,productAddViewModel)
         }
         composable("productListScreen") {

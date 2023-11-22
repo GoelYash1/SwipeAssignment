@@ -1,13 +1,11 @@
 package com.example.swipeassignment.data.repo
 
 import com.example.swipeassignment.api.ProductApi
-import com.example.swipeassignment.data.models.PostProduct
 import com.example.swipeassignment.data.models.Product
 import com.example.swipeassignment.data.models.ProductApiResponse
 import com.example.swipeassignment.util.Resource
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody.Companion.toResponseBody
 
 class ProductRepositoryImpl(
     private val api: ProductApi
@@ -21,11 +19,11 @@ class ProductRepositoryImpl(
         }
     }
 
-    override suspend fun addProduct(postProduct: PostProduct): ProductApiResponse {
-        val productType = postProduct.productType.toRequestBody(MultipartBody.FORM)
-        val productName = postProduct.productName.toRequestBody(MultipartBody.FORM)
-        val price = postProduct.price.toRequestBody(MultipartBody.FORM)
-        val tax = postProduct.tax.toRequestBody(MultipartBody.FORM)
+    override suspend fun addProduct(product: Product): ProductApiResponse {
+        val productType = product.product_type.toRequestBody(MultipartBody.FORM)
+        val productName = product.product_name.toRequestBody(MultipartBody.FORM)
+        val price = product.price.toString().toRequestBody(MultipartBody.FORM)
+        val tax = product.tax.toString().toRequestBody(MultipartBody.FORM)
         return api.addProduct(productName = productName,productType = productType,price = price,tax=tax)
     }
 }

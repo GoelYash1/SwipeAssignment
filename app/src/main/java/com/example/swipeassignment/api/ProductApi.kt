@@ -20,6 +20,7 @@ interface ProductApi {
         @Part("product_type") productType: RequestBody,
         @Part("price") price: RequestBody,
         @Part("tax") tax: RequestBody,
+        @Part files: MultipartBody.Part?=null
     ): ProductApiResponse
 
 }

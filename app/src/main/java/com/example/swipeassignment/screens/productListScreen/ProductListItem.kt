@@ -39,7 +39,7 @@ fun ProductListItem(product: Product) {
         shape = RoundedCornerShape(16.dp), // Rounded corners
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
-        )
+        ),
     ) {
         Column(
             modifier = Modifier
@@ -72,17 +72,17 @@ fun ProductListItem(product: Product) {
                     text = product.product_name,
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 16.sp,
+                    maxLines = 4,
+                    modifier = Modifier.fillMaxWidth(0.6f)
                 )
                 val roundedPrice = BigDecimal(product.price.toString())
                     .setScale(2, RoundingMode.HALF_EVEN)
                     .toDouble()
                 Text(
-                    text = "Price: $roundedPrice",
+                    text = "Rs. $roundedPrice",
                     fontSize = 12.sp,
                 )
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -90,11 +90,11 @@ fun ProductListItem(product: Product) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Type: ${product.product_type}",
+                    text = "(${product.product_type})",
                     fontSize = 14.sp,
                 )
                 Text(
-                    text = "Tax: ${product.tax}",
+                    text = "${product.tax}",
                     fontWeight = FontWeight.Light,
                     fontSize = 12.sp,
                 )
