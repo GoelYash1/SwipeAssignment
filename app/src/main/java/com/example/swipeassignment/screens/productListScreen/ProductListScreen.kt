@@ -1,5 +1,7 @@
 package com.example.swipeassignment.screens.productListScreen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,6 +50,8 @@ fun ProductListScreen(productListViewModel: ProductListViewModel) {
         productListViewModel.getProducts()
     }
 
+    var searchButtonClicked by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .padding(8.dp)
@@ -54,13 +59,24 @@ fun ProductListScreen(productListViewModel: ProductListViewModel) {
     ) {
         OutlinedTextField(
             value = searchText,
-            onValueChange = { searchText = it },
+            onValueChange = {
+                searchText = it
+                if(searchText == ""){
+                    productListViewModel.setSearchQuery(searchText)
+                }
+            },
             placeholder = { Text("Search products") },
             modifier = Modifier.fillMaxWidth(),
-            leadingIcon = {
+            trailingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search",
+                    modifier = Modifier.background(Color.DarkGray.copy(0.5f)).clickable {
+                        searchButtonClicked = true
+                        if(searchText!=""){
+                            productListViewModel.setSearchQuery(searchText)
+                        }
+                    }
                 )
             }
         )
@@ -75,12 +91,7 @@ fun ProductListScreen(productListViewModel: ProductListViewModel) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
                 is Resource.Success -> {
-                    val filteredProducts = resource.data
-                        ?.filter {
-                            it.product_type.contains(searchText.trim(), ignoreCase = true) ||
-                                    it.product_name.contains(searchText.trim(), ignoreCase = true)
-                        }
-                        ?: emptyList()
+                    val filteredProducts = resource.data?: emptyList()
 
                     if (filteredProducts.isEmpty()) {
                         NoDataMessage("No products are there")

@@ -7,6 +7,7 @@ import okhttp3.RequestBody
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 
 interface ProductApi {
@@ -22,5 +23,11 @@ interface ProductApi {
         @Part("tax") tax: RequestBody,
         @Part files: MultipartBody.Part?=null
     ): ProductApiResponse
+
+    @Multipart
+    @PUT("product,{product_id}")
+    suspend fun editProduct(
+        @Part("product_id") productId: Int,
+    )
 
 }

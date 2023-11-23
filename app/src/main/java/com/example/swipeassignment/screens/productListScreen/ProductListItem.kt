@@ -36,7 +36,7 @@ fun ProductListItem(product: Product) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        shape = RoundedCornerShape(16.dp), // Rounded corners
+        shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         ),
