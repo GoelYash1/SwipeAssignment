@@ -23,11 +23,4 @@ interface ProductApi {
         @Part("tax") tax: RequestBody,
         @Part files: MultipartBody.Part?=null
     ): ProductApiResponse
-
-    @Multipart
-    @PUT("product,{product_id}")
-    suspend fun editProduct(
-        @Part("product_id") productId: Int,
-    )
-
 }
