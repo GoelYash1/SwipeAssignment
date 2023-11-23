@@ -17,12 +17,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -115,6 +118,9 @@ fun AddProductScreen(navController: NavHostController, productAddViewModel: Prod
 
         Spacer(modifier = Modifier.padding(16.dp))
 
+        ProductTextField(value = productName, onValueChange = { productName = it }, label = "Product Name")
+        Spacer(modifier = Modifier.padding(8.dp))
+
         ProductTextField(
             value = productType,
             onValueChange = { productType = it },
@@ -122,9 +128,6 @@ fun AddProductScreen(navController: NavHostController, productAddViewModel: Prod
             isDropdown = true,
             dropdownItems = productTypeList
         )
-        Spacer(modifier = Modifier.padding(8.dp))
-
-        ProductTextField(value = productName, onValueChange = { productName = it }, label = "Product Name")
         Spacer(modifier = Modifier.padding(8.dp))
 
         ProductTextField(
@@ -137,7 +140,6 @@ fun AddProductScreen(navController: NavHostController, productAddViewModel: Prod
             label = "Tax",
             keyboardType = KeyboardType.Number
         )
-
         Spacer(modifier = Modifier.padding(8.dp))
 
         ProductTextField(
@@ -218,6 +220,7 @@ private fun ProductTextField(
                         textFieldSize = coordinates.size.toSize()
                     }
                     .clickable { expanded = !expanded },
+                trailingIcon = { Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)},
                 enabled = false
             )
 
