@@ -56,7 +56,8 @@ import com.example.swipeassignment.viewmodels.ProductAddViewModel
 
 @Composable
 fun AddProductScreen(navController: NavHostController, productAddViewModel: ProductAddViewModel) {
-    var productType by remember { mutableStateOf("A") }
+    val productTypeList = listOf("Type A", "Type B", "Type C")
+    var productType by remember { mutableStateOf(productTypeList[0]) }
     var productName by remember { mutableStateOf("Test") }
     var tax by remember { mutableStateOf("20.00") }
     var price by remember { mutableStateOf("150.05") }
@@ -114,13 +115,12 @@ fun AddProductScreen(navController: NavHostController, productAddViewModel: Prod
 
         Spacer(modifier = Modifier.padding(16.dp))
 
-        // Input fields
         ProductTextField(
             value = productType,
             onValueChange = { productType = it },
             label = "Product Type",
             isDropdown = true,
-            dropdownItems = listOf("Type A", "Type B", "Type C")
+            dropdownItems = productTypeList
         )
         Spacer(modifier = Modifier.padding(8.dp))
 
@@ -180,12 +180,14 @@ fun AddProductScreen(navController: NavHostController, productAddViewModel: Prod
 
     if (showToast) {
         Toast.makeText(LocalContext.current, toastText, Toast.LENGTH_SHORT).show()
+        showToast = false
     }
 
     LaunchedEffect(successfulAdd) {
         if (successfulAdd) {
             navController.navigateUp()
             successfulAdd = false
+            showToast = true
         }
     }
 
